@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal Web Application">
-    <title>Personal Webapp</title>
+    <meta name="description" content="AVIONE — ilovani yuklab oling va biz bilan bog'laning">
+    <meta name="theme-color" content="#050a5c">
+    <title>AVIONE</title>
     <style>
         * {
             margin: 0;
@@ -12,123 +13,280 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            min-height: 100%;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            color: #fff;
+            background: #03063a;
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Blue light-burst background with stars */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse 70% 45% at 50% 0%, rgba(80, 140, 255, 0.55) 0%, rgba(30, 60, 220, 0.25) 45%, transparent 75%),
+                linear-gradient(180deg, #0a1fb8 0%, #071190 30%, #040a5e 60%, #03063a 100%);
+        }
+
+        .bg::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -10%;
+            width: 220vmax;
+            height: 220vmax;
+            transform: translateX(-50%);
+            background: repeating-conic-gradient(from 0deg at 50% 0%,
+                rgba(140, 190, 255, 0.10) 0deg 2deg,
+                transparent 2deg 9deg);
+            -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 35%);
+            mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 35%);
+            animation: rays 60s linear infinite;
+        }
+
+        @keyframes rays {
+            from { transform: translateX(-50%) rotate(-4deg); }
+            50%  { transform: translateX(-50%) rotate(4deg); }
+            to   { transform: translateX(-50%) rotate(-4deg); }
+        }
+
+        #stars {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 420px;
+            padding: 28px 16px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
         }
 
-        .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+        .logo img,
+        .logo svg {
             width: 100%;
-            padding: 40px;
-            text-align: center;
+            height: 100%;
+            object-fit: cover;
         }
 
         h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            margin-top: 14px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
         }
 
         .subtitle {
-            color: #666;
-            font-size: 1.1em;
-            margin-bottom: 30px;
+            margin-top: 6px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            opacity: 0.95;
         }
 
-        .content {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .button-group {
+        .links {
+            width: 100%;
+            margin-top: 20px;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        button, a.btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
+            min-height: 60px;
+            padding: 12px 20px;
+            border-radius: 4px;
+            background: rgba(52, 50, 140, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
             text-decoration: none;
-            display: inline-block;
-            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+            transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        button:hover, a.btn:hover {
+        .link:hover {
+            background: rgba(68, 66, 175, 0.95);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .secondary-btn {
-            background: #f0f0f0;
-            color: #333;
+        .link:active {
+            transform: scale(0.98);
         }
 
-        .secondary-btn:hover {
-            background: #e0e0e0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .link:focus-visible {
+            outline: 2px solid #8fb4ff;
+            outline-offset: 2px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            height: 44px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .divider svg {
+            width: 18px;
+            height: 18px;
+            animation: nudge 2s ease-in-out infinite;
+        }
+
+        @keyframes nudge {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(3px); }
         }
 
         footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #999;
-            font-size: 0.9em;
+            margin-top: 32px;
+            font-size: 0.8rem;
+            opacity: 0.5;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            button, a.btn {
-                width: 100%;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            .bg::before, .divider svg { animation: none; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome</h1>
-        <p class="subtitle">Personal Web Application</p>
+    <div class="bg" aria-hidden="true"><canvas id="stars"></canvas></div>
 
-        <div class="content">
-            <p>This is your personal web application. Start building something amazing here!</p>
+    <main class="page">
+        <div class="logo">
+            <!-- Put your own logo next to this file as logo.png; the drawn logo is used until then -->
+            <img src="logo.png" alt="AVIONE logo" onerror="this.replaceWith(document.getElementById('logo-fallback').content.cloneNode(true))">
         </div>
+        <template id="logo-fallback">
+            <svg viewBox="0 0 100 100" role="img" aria-label="AVIONE logo">
+                <circle cx="50" cy="50" r="50" fill="#fff"/>
+                <path d="M30 68 L47 30 L56 30 L72 66" fill="none" stroke="#e5222b" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M24 58 C42 46, 62 44, 80 52 C66 52, 50 56, 38 66" fill="#e5222b"/>
+            </svg>
+        </template>
 
-        <div class="button-group">
-            <button onclick="alert('Getting started...')">Get Started</button>
-            <a href="#" class="btn secondary-btn">Learn More</a>
-        </div>
+        <h1>AVIONE</h1>
+        <p class="subtitle">📲 Ilovani yuklab oling 👇</p>
 
-        <footer>
-            <p>&copy; 2026 Personal Webapp. All rights reserved.</p>
-        </footer>
-    </div>
+        <nav class="links" id="links" aria-label="Havolalar"></nav>
+
+        <footer>&copy; <span id="year"></span> AVIONE</footer>
+    </main>
+
+    <script>
+        // Edit the links here. Use { divider: true } for the arrow separator.
+        const LINKS = [
+            { title: "Play Market",      url: "https://play.google.com/store/apps/details?id=uz.avione" },
+            { title: "App Store",        url: "https://apps.apple.com/app/avione" },
+            { title: "Veb-sayt",         url: "https://avione.uz/" },
+            { divider: true },
+            { title: "Telegram kanal",   url: "https://t.me/avione_uz" },
+            { title: "Info bot",         url: "https://t.me/avione_info_bot" },
+            { title: "Call center",      url: "tel:+998000000000" },
+            { title: "Support Telegram", url: "https://t.me/avione_support" }
+        ];
+
+        const list = document.getElementById("links");
+        for (const item of LINKS) {
+            if (item.divider) {
+                const d = document.createElement("div");
+                d.className = "divider";
+                d.setAttribute("aria-hidden", "true");
+                d.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+                list.appendChild(d);
+                continue;
+            }
+            const a = document.createElement("a");
+            a.className = "link";
+            a.href = item.url;
+            a.textContent = item.title;
+            if (/^https?:/.test(item.url)) {
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+            }
+            list.appendChild(a);
+        }
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Twinkling stars
+        const canvas = document.getElementById("stars");
+        const ctx = canvas.getContext("2d");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let stars = [];
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = innerWidth * dpr;
+            canvas.height = innerHeight * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            const count = Math.round((innerWidth * innerHeight) / 6000);
+            stars = Array.from({ length: count }, () => ({
+                x: Math.random() * innerWidth,
+                y: Math.random() * innerHeight,
+                r: Math.random() * 1.4 + 0.3,
+                phase: Math.random() * Math.PI * 2,
+                speed: Math.random() * 0.02 + 0.005
+            }));
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (const s of stars) {
+                s.phase += s.speed;
+                const alpha = 0.35 + 0.65 * Math.abs(Math.sin(s.phase));
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(190, 215, 255, ${alpha})`;
+                ctx.fill();
+            }
+            if (!reduceMotion) requestAnimationFrame(draw);
+        }
+
+        addEventListener("resize", () => { resize(); if (reduceMotion) draw(); });
+        resize();
+        draw();
+    </script>
 </body>
 </html>
